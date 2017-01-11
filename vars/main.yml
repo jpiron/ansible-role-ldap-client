@@ -1,0 +1,14 @@
+---
+ldap_client_debconf_selections:
+  - name: nslcd
+    question: "nslcd/ldap-uris"
+    vtype: string
+    value: "{{ ldap_client_ldap_uri }}"
+  - name: nslcd
+    question: "nslcd/ldap-base"
+    vtype: string
+    value: "{{ ldap_client_ldap_base_dn }}"
+  - name: libnss-ldapd
+    question: "libnss-ldapd/nsswitch"
+    vtype: multiselect
+    value: "{{ ldap_client_services | join(', ') }}"

@@ -1,0 +1,37 @@
+---
+- name: ldap_client - Update apt-cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 600
+  when: "{{ ldap_client_packages_state == 'latest' }}"
+
+
+- name: ldap_client - Install debconf package
+  apt:
+    name: debconf
+    state: "{{ ldap_client_packages_state  }}"
+
+
+- name: ldap_client - Configuration
+  debconf:
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  with_items: "{{ ldap_client_debconf_selections }}"
+  register: configuration
+
+
+- name: ldap_client - Install the necessary packages
+  apt:
+    name: libnss-ldapd
+    state: "{{ ldap_client_packages_state  }}"
+  register: installation
+
+
+- name: ldap_client - Reconfigure packages
+  command: dpkg-reconfigure -f noninteractive libnss-ldapd
+  when: configuration.changed and not installation.changed
+  notify:
+    - restart nslcd
+    - restart nscd

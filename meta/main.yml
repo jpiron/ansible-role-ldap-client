@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Jonathan Piron
+  description: Ansible role to configure a LDAP client.
+  company: Jonathan Piron
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+  categories:
+    - system
+dependencies: []

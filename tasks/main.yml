@@ -1,0 +1,4 @@
+---
+- include: ldap_client.yml
+  tags:
+    - ldap_client

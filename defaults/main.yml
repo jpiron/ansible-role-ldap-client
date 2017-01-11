@@ -1,0 +1,9 @@
+---
+ldap_client_packages_state: "present"
+
+ldap_client_ldap_uri: "ldap://domain.com/"
+ldap_client_ldap_base_dn: "dc=domain,dc=com"
+ldap_client_services:
+  - group
+  - passwd
+  - shadow
